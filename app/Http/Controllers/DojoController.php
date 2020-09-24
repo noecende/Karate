@@ -15,6 +15,8 @@ class DojoController extends Controller
     public function index()
     {
         //
+        $dojos = Dojo::all();
+        return view('dojos_index', ["dojos" => $dojos]);
     }
 
     /**
@@ -25,6 +27,7 @@ class DojoController extends Controller
     public function create()
     {
         //
+        return view ('dojos');
     }
 
     /**
@@ -36,6 +39,10 @@ class DojoController extends Controller
     public function store(Request $request)
     {
         //
+        $dojo = new Dojo($request->input());
+        $dojo->save();
+        return "Dojo Registrado";
+
     }
 
     /**
@@ -58,6 +65,7 @@ class DojoController extends Controller
     public function edit(Dojo $dojo)
     {
         //
+        return view('dojos_edit', ["dojo" => $dojo]);
     }
 
     /**
@@ -70,6 +78,11 @@ class DojoController extends Controller
     public function update(Request $request, Dojo $dojo)
     {
         //
+        $dojo->nombre = $request->nombre;
+        $dojo->estado = $request->estado;
+        $dojo->titular = $request->titular;
+        $dojo->save();
+        return "actualizado";
     }
 
     /**
@@ -81,5 +94,7 @@ class DojoController extends Controller
     public function destroy(Dojo $dojo)
     {
         //
+        $dojo->delete();
+        return "Eliminado";
     }
 }

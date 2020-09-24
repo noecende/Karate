@@ -29,15 +29,15 @@ Route::get('/', function () {
 });*/
 
 //Obtiene todos los dojos registrados en la BD
-Route::get('/dojos', function(){
+/*Route::get('/dojos', function(){
       
     dd(Dojo::all());
 
 
     
-});
+});*/
 
-//Obtiene un dojo en especifico
+/*//Obtiene un dojo en especifico
 Route::get('/dojos/{id}', function($id){
       
       $dojo = Dojo::find($id);
@@ -54,7 +54,7 @@ Route::post('/dojos', function(){
     $dojo->estado = "Zacatecas";
     $dojo->titular = "María Fernanda Román";
     $dojo->save();
-});
+}); */
 
 
 Route::get('/prueba/{arg_string}', function($string){
@@ -79,8 +79,8 @@ Route::get('/mascotas/{mascota}', "MascotasController@show"); // Mostramos un re
 
 Route::delete('/mascotas/{mascota}', "MascotasController@destroy"); //Elimina el recurso **/
 
-Route::resource('mascotas', "MascotasController");
-
+Route::resource('/mascotas', "MascotasController");
+Route::resource('/dojos', "DojoController");
 
 
 
