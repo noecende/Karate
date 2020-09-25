@@ -43,7 +43,7 @@ class RegisterController extends Controller
 
     /**
      * Get a validator for an incoming registration request.
-     *
+     * 
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'dojo_id' => ['required', 'exists:dojos,id'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
     }
 
     /**

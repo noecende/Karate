@@ -81,6 +81,7 @@ Route::delete('/mascotas/{mascota}', "MascotasController@destroy"); //Elimina el
 
 Route::resource('/mascotas', "MascotasController");
 Route::resource('/dojos', "DojoController");
+Route::resource('users.alumnos', 'AlumnoController');
 
 
 

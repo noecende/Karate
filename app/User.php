@@ -36,4 +36,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Declarar relación uno a muchos 
+    //Se puede elegir cualquier nombre, pero por convención se usa el plural del modelo.
+    public function alumnos()
+    {
+        return $this->hasMany('App\Alumno');
+    }
+
+
 }

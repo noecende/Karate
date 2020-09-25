@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use App\Dojo;
 use App\Http\Requests\StoreDojoRequest;
 use Illuminate\Http\Request;
@@ -15,11 +16,24 @@ class DojoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         //
         $dojos = Dojo::all();
-        return view('dojos_index', ["dojos" => $dojos]);
+        $user = Auth::user();
+        if (!Auth::check()) {
+            // The user is logged in...
+            return redirect("www.google.com");
+        }
+        return view('dojos_index', [ 
+            "user" => $user,
+            "dojos" => $dojos]);
     }
 
     /**
