@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Dojo;
+use App\Http\Requests\StoreDojoRequest;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class DojoController extends Controller
 {
@@ -36,12 +39,22 @@ class DojoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDojoRequest $request)
     {
         //
-        $dojo = new Dojo($request->input());
+        /*$validatedData = $request->validate([
+            'nombre' => 'required|string|unique:dojos|max:30|',
+            'titular' => 'required|string',
+            'estado' => ['required', 'string' , 
+                Rule::in(['Zacatecas', 'Aguascalientes', 'San Luis', 'Durango'])]//Zacatecas, Aguascalientes, San Luis, Durango
+        ]);*/
+        $request->validated();
+        //Datos válidos
+        //Enviar en el constructor la petición. Los nombres de la petición, deben coincidir exactamente con los del modelo. 
+        $dojo = new Dojo($request->input()); 
+        
         $dojo->save();
-        return "Dojo Registrado";
+        return redirect('/dojos');
 
     }
 
@@ -65,7 +78,11 @@ class DojoController extends Controller
     public function edit(Dojo $dojo)
     {
         //
-        return view('dojos_edit', ["dojo" => $dojo]);
+
+
+
+
+        return view('dojos_update', ["dojo" => $dojo]);
     }
 
     /**
@@ -78,11 +95,28 @@ class DojoController extends Controller
     public function update(Request $request, Dojo $dojo)
     {
         //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|unique:dojos|max:30|',
+            'titular' => 'required|string',
+            'estado' => ['required', 'string' , 
+                Rule::in(['Zacatecas', 'Aguascalientes', 'San Luis', 'Durango'])]//Zacatecas, Aguascalientes, San Luis, Durango
+        ]);
+
+         //Personalizar cómo se manejan los errores. 
+        if ($validator->fails()) {
+
+            //Esta es la lógica por default de laravel.
+            return redirect('dojos/'.$dojo->id.'/edit')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        //La entrada es válida
+
         $dojo->nombre = $request->nombre;
         $dojo->estado = $request->estado;
         $dojo->titular = $request->titular;
         $dojo->save();
-        return "actualizado";
+        return redirect('/dojos');
     }
 
     /**
@@ -95,6 +129,6 @@ class DojoController extends Controller
     {
         //
         $dojo->delete();
-        return "Eliminado";
+        return redirect('/dojos');
     }
 }

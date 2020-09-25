@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Dojos</title>
+    <title>{{$user->name}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta charset="utf-8">
     <meta name="Mascotas" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +13,7 @@
 
 <body>
     <div class="form-group m-5 bg-light rounded-lg">
-      <h1 class="text-dark p-3">Registro de Dojos</h1>
+      <h1 class="text-dark p-3">{{$user->name}}</h1>
       <form action="/dojos" method="POST">
           @csrf
           <div class="form-row p-3">
@@ -34,6 +34,20 @@
           </div>
         </form>
     </div>
+
+    <div> 
+
+    @if($errors)
+        <div class="alert alert-danger" role="alert">
+                  {{$errors->first()}}
+          
+        </div>
+    @endIf
+    
+
+    </div>
+
+
 
    <!--JQUERY de bootstrap-->
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
