@@ -66,11 +66,11 @@
         </form>
     </div>
      
-    @if(!is_null($errors))
+    @if($errors->count() > 0)
         <div class="alert alert-danger" role="alert">
-                  {{$errors->first()}}
+            {{$errors->first()}}
         </div>
-    @endIf
+    @endif()
     
 
 

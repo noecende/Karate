@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class StoreDojoRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreDojoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
